@@ -1,0 +1,155 @@
+# this file defines acronyms, one acronym per line
+ACL - Access Control List
+AES - Advanced Encryption Standard
+ALS - Automatic Laser Shutdown
+AN - Association Number
+AN - Auto Negotiation
+API - Application Program Interface
+APS - Automatic Protection Switching
+APSPORT - Automatic Protection Switching Port
+ARP - Address Resolution Protocol
+ASIC - Application Specific Integrated Circuit
+BFD - Bidirectional Forwarding Detection
+BFDV6 - Bidirectional Forwarding Detection for IPv6
+BGP - Border Gateway Protocol
+BIP - Bit Interleaved Parity
+BOS - Bottom Of Stack
+CAM - Content Addressable Memory
+CAUI - 100 Gigabit Attachment Unit Interface
+CB - Callback
+CBS - Committed Burst Size
+CCITT - Comite Consultatif International de Telegraphique et Telephonique
+CFI - Canonical Format Indicator
+CIDR - Classless Inter Domain Routing
+CIR - Committed Information Rate
+CPU - Central Processing Unit
+CRC - Cyclic Redundancy Code
+DCO - Digital Coherent Optical
+DHCP - Dynamic Host Configuration Protocol
+DHCPV6 - Dynamic Host Configuration Protocol for IPv6
+DGD - Differential Group Delay
+DLD - Dead Lock Detection
+DLDR - Dead Lock Detection and Recovery
+DLL - Dynamic Link Library
+DLR - Dead Lock Recovery
+DMA - Direct Memory Access
+DNAT - Destination Network Address Translation
+DSCP - Differentiated Services Code Point
+DTEL - Data Plane Telemetry
+ECC - Error Correction Code
+ECMP - Equal Cost Multi-Path
+ECN - Explicit Congestion Notification
+ECT - ECN Capable Transport
+EEE - Electrical and Electronics Engineering
+ERSPAN - Encapsulated Remote SPAN
+FCS - Frame Check Sequence
+FD - File Descriptor
+FDB - Forwarding Data Base
+FEC - Forward Error Correction
+FPGA - Field Programmable Gate Array
+FGA - Fixed Gain Amplifier
+GCM - Galois Counter Mode
+GMII - Gigabit Media-Independent Interface
+GPB - Google Protocol Buffers
+GRE - Generic Routing Encapsulation
+GRPC - GRPC Remote Procedure Call
+HW - Hardware
+I2C - Inter Integrated Circuit
+ICMP - Internet Control Message Protocol
+ICMPV6 - Internet Control Message Procotol for IPv6
+IEEE - Institute of Electrical and Electronics Engineers
+IFA - Inband Flow Analyzer
+IFA1 - Inband Flow Analyzer version 1
+IFA2 - Inband Flow Analyzer version 2
+IGMP - Internet Group Management Protocol
+IHL - Internet Header Length
+IOAM - In-situ Operations And Management
+IP - Internet Protocol
+IPG - Inter-Packet Gap
+IPFIX - IP Flow Information Export
+IP2ME - IP packets to local router IP
+IPMC - Intelligent Platform Management Controller
+L2 - Layer 2
+L2MC - Layer 2 Multi Cast
+L3 - Layer 3
+LAI - Linecard Abstraction Interface
+LAG - Link Aggregation Group
+LPM - Longest Prefix Match
+LSP - Label Switched Path
+MAC - Medium Access Control
+MMU - Memory Management Unit
+MPLS - Multi Protocol Label Switching
+MTU - Maximum Transmission Unit
+NHLFE - Next Hop Label Forwarding Entry
+NPU - Numeric Processing Unit
+NRZ - Non Return to Zero
+NVGRE - Network Virtualization using Generic Routing Encapsulation
+OA - Optical Amplifier
+OAM - Operations Administration and Maintenance
+OMD - Optical Mux and Demux
+OUI - Organizationally Unique Identifier
+PAM4 - Pulse Amplitude Modulation 4-level
+PBS - Peak Burst Size
+PCI - Peripheral Component Interconnect
+PHP - Penultimate Hop Pop
+PFC - Priority Flow Control
+PIR - Peak Information Rate
+PN - Packet Number
+PSC - PHB Scheduling Class
+PTP - Precision time protocol
+QOS - Quality of Service
+OPU - Optical Pickup Unit
+OTU - Optical Transport Unit
+RARP - Reverse Address Resolution Protocol
+RDI - Remote Defect Indication
+RFC - Request For Comment
+RMON - Remote Monitoring
+ROADM - Reconfigurable Optical Add-Drop Multiplexer
+RPF - Reverse Path Forwarding
+RSPAN - Remote Span
+SA - Secure Association
+SAK - Secure Association Key
+SAI - Switch Abstraction Interface
+SCI - Secure Channel Identifier
+SC - Secure Channel
+SDK - Software Development Kit
+SDH - Synchronous Digital Hierarchy
+SNCP - Subnetwork Connection Protection
+SONET - Synchronous Optical Network
+SFI - SerDes Framer Interface
+SFLOW - Sampled Flow
+SG - (S,G) Source-specific multicast
+SNAT - Source Network Address Translation
+SNMP - Simple Network Management Protocol
+SNR - Signal to Noise Ratio
+SPAN - Switched Port Analyzer
+SQE - Signal Quality Errors
+SSCI - Short Secure Channel Identifier
+SSH - Secure Shell
+SSL - Secure Socket Layer
+STP - Spanning Tree Protocol
+ODU - Optical channel Data Unit
+OSC - Optical Supervisory Channel
+OTN - Optical Transport Network
+PMD - Physical Medium Dependent
+TC - Traffic Control
+TCP - Transmission Control Protocol
+TLS - Transport Layer Security
+TOS - Type Of Service
+TPID - Tag Protocol Identifier
+TTL - Time to Leave
+TTI - Trail Trace Identifier
+TFF - Thin Film Filter
+UDP - User Datagram Protocol
+WWW - World Wide Web
+FW  - Firmware
+MDIO - Management Data Input/Output
+I2C - I squared C
+CPLD - Complex programmable logic device
+EEPROM - Electrically erasable programmable read-only memory
+PRBS - Pseudorandom Binary Sequence
+EDFA - Erbium Doped Fiber Amplifer
+VOA - Variable Optical Attenuator
+WSS - Wavelength Selective Switch
+OCM - Optical Channel Monitor
+OTDR - Optical Time Domain Reflectometer
