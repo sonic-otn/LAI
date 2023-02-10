@@ -162,6 +162,12 @@ sub ProcessTagType
         return $val;
     }
 
+    if ($val =~ /^lai_pointer_t (lai_otdr_\w+_fn)$/)
+    {
+        $ATTR_TO_CALLBACK{$value} = $1;
+        return $val;
+    }
+
     LogError "invalid type tag value '$val' expected lai type or enum";
 
     return undef;
