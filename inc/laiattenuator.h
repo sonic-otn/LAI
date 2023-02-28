@@ -54,14 +54,6 @@ typedef enum _lai_attenuator_attr_t
     LAI_ATTENUATOR_ATTR_ID = LAI_ATTENUATOR_ATTR_START,
 
     /**
-     * @brief Name
-     *
-     * @type char
-     * @flags CREATE_AND_SET
-     */
-    LAI_ATTENUATOR_ATTR_NAME,
-
-    /**
      * @brief Attenuation mode
      *
      * @type lai_attenuator_attenuation_mode_t

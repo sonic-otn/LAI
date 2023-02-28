@@ -672,14 +672,15 @@ typedef struct _lai_alarm_info_t
     lai_s8_list_t text;
 
     /**
-     * @brief Resource
+     * @brief Resource object id
      */
-    lai_s8_list_t resource;
+    lai_object_id_t resource_oid;
 
     /**
      * @brief Severity
      */
     lai_alarm_severity_t severity;
+
 } lai_alarm_info_t;
 
 /**

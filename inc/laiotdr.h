@@ -137,22 +137,6 @@ typedef enum _lai_otdr_attr_t
     LAI_OTDR_ATTR_ID = LAI_OTDR_ATTR_START,
 
     /**
-     * @brief Name
-     *
-     * @type char
-     * @flags CREATE_AND_SET
-     */
-    LAI_OTDR_ATTR_NAME,
-
-    /**
-     * @brief Parent port
-     *
-     * @type char
-     * @flags CREATE_AND_SET
-     */
-    LAI_OTDR_ATTR_PARENT_PORT,
-
-    /**
      * @brief Refractive index
      *
      * @type lai_double_t
@@ -367,14 +351,6 @@ typedef enum _lai_otdr_attr_t
      * @flags READ_ONLY
      */
     LAI_OTDR_ATTR_SOFTWARE_VERSION,
-
-    /**
-     * @brief Parent
-     *
-     * @type char
-     * @flags READ_ONLY
-     */
-    LAI_OTDR_ATTR_PARENT,
 
     /**
      * @brief Result notify

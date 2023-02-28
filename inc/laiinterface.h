@@ -81,14 +81,6 @@ typedef enum _lai_interface_attr_t
     LAI_INTERFACE_ATTR_HARDWARE_PORT,
 
     /**
-     * @brief Name
-     *
-     * @type char
-     * @flags READ_ONLY
-     */
-    LAI_INTERFACE_ATTR_NAME,
-
-    /**
      * @brief End of attributes
      */
     LAI_INTERFACE_ATTR_END,
