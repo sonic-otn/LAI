@@ -30,31 +30,8 @@
  */
 
 /**
- * @brief Maximum Number of Linecards
- */
-#define LAI_MAX_LINECARDS                         8
-
-/**
- * @brief Maximum Hardware ID Length
- */
-#define LAI_MAX_HARDWARE_ID_LEN                 255
-
-/**
  * @brief Attribute data for #LAI_LINECARD_ATTR_LINECARD_TYPE
  */
-typedef enum _lai_linecard_type_t
-{
-    LAI_LINECARD_TYPE_T340CE,
-    LAI_LINECARD_TYPE_P230C,
-    LAI_LINECARD_TYPE_E100C,
-    LAI_LINECARD_TYPE_E110C,
-    LAI_LINECARD_TYPE_E120C,
-    LAI_LINECARD_TYPE_OA2325,
-    LAI_LINECARD_TYPE_OA2335,
-    LAI_LINECARD_TYPE_OCM8,
-    LAI_LINECARD_TYPE_OTDR8,
-
-} lai_linecard_type_t;
 
 /**
  * @brief The board mode of the linecard
@@ -161,9 +138,8 @@ typedef enum _lai_linecard_attr_t
     /**
      * @brief Linecard type
      *
-     * @type lai_linecard_type_t
+     * @type char
      * @flags MANDATORY_ON_CREATE | CREATE_AND_SET
-     * @default empty
      */
     LAI_LINECARD_ATTR_LINECARD_TYPE = LAI_LINECARD_ATTR_START,
 
@@ -663,36 +639,6 @@ typedef enum _lai_linecard_stat_t
     LAI_LINECARD_STAT_END,
 
 } lai_linecard_stat_t;
-
-/**
- * @def LAI_KEY_BOOT_TYPE
- *
- * 0: cold boot. Initialize NPU and external phys.
- * 1: warm boot. Do not re-initialize NPU or external phys, reconstruct LAI/SDK state from stored state.
- * 2: fast boot. Only initialize NPU. LAI/SDK state should not be persisted except for those related
- *    to physical port attributes such as SPEED, AUTONEG mode, admin state, operational status.
- */
-#define LAI_KEY_BOOT_TYPE                         "LAI_BOOT_TYPE"
-
-/**
- * @def LAI_KEY_WARM_BOOT_READ_FILE
- * The file to recover LAI/NPU state from
- */
-#define LAI_KEY_WARM_BOOT_READ_FILE               "LAI_WARM_BOOT_READ_FILE"
-
-/**
- * @def LAI_KEY_WARM_BOOT_WRITE_FILE
- * The file to write LAI/NPU state to
- */
-#define LAI_KEY_WARM_BOOT_WRITE_FILE              "LAI_WARM_BOOT_WRITE_FILE"
-
-/**
- * @def LAI_KEY_HW_PORT_PROFILE_ID_CONFIG_FILE
- * Vendor specific Configuration file for Hardware Port Profile ID parameters.
- * HW port profile ID can be used to set vendor specific port attributes based on
- * the transceiver type plugged in to the port
- */
-#define LAI_KEY_HW_PORT_PROFILE_ID_CONFIG_FILE    "LAI_HW_PORT_PROFILE_ID_CONFIG_FILE"
 
 /**
  * @brief Create linecard
