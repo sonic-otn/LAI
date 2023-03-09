@@ -30,26 +30,6 @@
  */
 
 /**
- * @brief Attribute data for #LAI_LINECARD_ATTR_LINECARD_TYPE
- */
-
-/**
- * @brief The board mode of the linecard
- */
-typedef enum _lai_linecard_board_mode_t
-{
-    LAI_LINECARD_BOARD_MODE_LA_400G_CA_200GE,
-    LAI_LINECARD_BOARD_MODE_L1_400G_CA_100GE,
-    LAI_LINECARD_BOARD_MODE_L2_400G_CA_100GE,
-    LAI_LINECARD_BOARD_MODE_LA_400G_RELAY,
-    LAI_LINECARD_BOARD_MODE_LA_400G_SNCP_CA_100GE,
-    LAI_LINECARD_BOARD_MODE_LA_400G_SNCP_C12_200GE,
-    LAI_LINECARD_BOARD_MODE_LA_400G_SNCP_C34_200GE,
-    LAI_LINECARD_BOARD_MODE_LA_200G_CA_100GE_QPSK,
-    LAI_LINECARD_BOARD_MODE_MAX,
-} lai_linecard_board_mode_t;
-
-/**
  * @brief Power admin state of the linecard
  */
 typedef enum _lai_linecard_power_admin_state_t
@@ -154,7 +134,7 @@ typedef enum _lai_linecard_attr_t
     /**
      * @brief The board mode of the linecard
      *
-     * @type lai_linecard_board_mode_t
+     * @type char
      * @flags CREATE_AND_SET
      */
     LAI_LINECARD_ATTR_BOARD_MODE,
