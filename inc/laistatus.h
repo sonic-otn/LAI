@@ -181,6 +181,11 @@
 #define LAI_STATUS_OBJECT_NOT_READY                 LAI_STATUS_CODE(0x0000001AL)
 
 /**
+ * @brief The linecard type does not match expectation.
+ */
+#define LAI_STATUS_LINECARD_TYPE_MISMATCH           LAI_STATUS_CODE(0x0000001BL)
+
+/**
  * @brief Attribute is invalid
  *
  * Range from 0x00010000L to 0x0001FFFFL.
