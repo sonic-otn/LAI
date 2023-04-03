@@ -55,6 +55,22 @@ typedef enum _lai_ocm_attr_t
     LAI_OCM_ATTR_MONITOR_PORT,
 
     /**
+     * @brief Enabled
+     *
+     * @type bool
+     * @flags CREATE_AND_SET
+     */
+    LAI_OCM_ATTR_ENABLED,
+
+    /**
+     * @brief Frequency granularity in MHz
+     *
+     * @type lai_uint64_t
+     * @flags CREATE_AND_SET
+     */
+    LAI_OCM_ATTR_FREQUENCY_GRANULARITY,
+
+    /**
      * @brief Serial No
      *
      * @type char
