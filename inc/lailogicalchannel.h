@@ -116,6 +116,7 @@ typedef enum _lai_logicalchannel_trib_protocol_t
     LAI_LOGICALCHANNEL_TRIB_PROTOCOL_PROT_OTSIG,        /**< Optical tributary signal group protocol */
     LAI_LOGICALCHANNEL_TRIB_PROTOCOL_PROT_ODUFLEX_CBR,  /**< ODU Flex with CBR protocol */
     LAI_LOGICALCHANNEL_TRIB_PROTOCOL_PROT_ODUFLEX_GFP,  /**< ODU Flex with GFP protocol */
+    LAI_LOGICALCHANNEL_TRIB_PROTOCOL_PROT_200GE,        /**< 200G Ethernet protocol */
 } lai_logicalchannel_trib_protocol_t;
 
 /** @brief Link state of the Ethernet protocol on the logical channel, SONET / SDH framed signal, etc. */
