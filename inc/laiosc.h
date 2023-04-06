@@ -95,14 +95,6 @@ typedef enum _lai_osc_attr_t
     LAI_OSC_ATTR_HARDWARE_VERSION,
 
     /**
-     * @brief Name
-     *
-     * @type char
-     * @flags CREATE_AND_SET
-     */
-    LAI_OSC_ATTR_NAME,
-
-    /**
      * @brief Admin state
      *
      * @type lai_admin_state_t

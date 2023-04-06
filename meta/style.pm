@@ -318,7 +318,7 @@ sub CheckFunctionsParams
         next if not $fname =~ /_fn$/; # below don't apply for global functions
 
         if (not $fnparams =~ /^(\w+)(| attr| attr_count attr_list| linecard_id attr_count attr_list)$/ and
-            not $fname =~ /_(stats|stats_ext|gauges|notification|event|handler|alarms|switch_info)_fn$|^lai_(send|allocate|free|recv|bulk)_|^lai_meta/)
+            not $fname =~ /_(stats|stats_ext|gauges|notification|event|handler|alarms|switch_info|report_result)_fn$|^lai_(send|allocate|free|recv|bulk)_|^lai_meta/)
         {
             LogWarning "wrong param names: $fnparams: $fname";
             LogWarning " expected: $params[0](| attr| attr_count attr_list| linecard_id attr_count attr_list)";

@@ -202,14 +202,6 @@ typedef enum _lai_oa_attr_t
     LAI_OA_ATTR_FIRMWARE_VERSION,
 
     /**
-     * @brief Name
-     *
-     * @type char
-     * @flags CREATE_AND_SET
-     */
-    LAI_OA_ATTR_NAME,
-
-    /**
      * @brief Target gain
      *
      * @type lai_double_t
@@ -221,7 +213,7 @@ typedef enum _lai_oa_attr_t
      * @brief Min gain
      *
      * @type lai_double_t
-     * @flags CREATE_AND_SET
+     * @flags READ_ONLY
      */
     LAI_OA_ATTR_MIN_GAIN,
 
@@ -229,7 +221,7 @@ typedef enum _lai_oa_attr_t
      * @brief Max gain
      *
      * @type lai_double_t
-     * @flags CREATE_AND_SET
+     * @flags READ_ONLY
      */
     LAI_OA_ATTR_MAX_GAIN,
 

@@ -47,14 +47,6 @@ typedef enum _lai_wss_attr_t
     LAI_WSS_ATTR_ID = LAI_WSS_ATTR_START,
 
     /**
-     * @brief Name
-     *
-     * @type char
-     * @flags READ_ONLY
-     */
-    LAI_WSS_ATTR_NAME,
-
-    /**
      * @brief Serial No
      *
      * @type char
@@ -125,14 +117,6 @@ typedef enum _lai_wss_attr_t
      * @flags READ_ONLY
      */
     LAI_WSS_ATTR_SOFTWARE_VERSION,
-
-    /**
-     * @brief Parent
-     *
-     * @type char
-     * @flags READ_ONLY
-     */
-    LAI_WSS_ATTR_PARENT,
 
     /**
      * @brief End of attributes

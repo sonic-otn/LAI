@@ -256,6 +256,26 @@ typedef enum _lai_port_stat_t
     LAI_PORT_STAT_OUTPUT_POWER,
 
     /**
+     * @brief OSC input power
+     *
+     * @type lai_double_t
+     * @unit dBm
+     * @precision precision2
+     * @iscounter false
+     */
+    LAI_PORT_STAT_OSC_INPUT_POWER,
+
+    /**
+     * @brief OSC output power
+     *
+     * @type lai_double_t
+     * @unit dBm
+     * @precision precision2
+     * @iscounter false
+     */
+    LAI_PORT_STAT_OSC_OUTPUT_POWER,
+
+    /**
      * @brief End of statistics
      */
     LAI_PORT_STAT_END,

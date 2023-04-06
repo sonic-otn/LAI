@@ -47,20 +47,28 @@ typedef enum _lai_ocm_attr_t
     LAI_OCM_ATTR_ID = LAI_OCM_ATTR_START,
 
     /**
-     * @brief Name
-     *
-     * @type char
-     * @flags CREATE_AND_SET
-     */
-    LAI_OCM_ATTR_NAME,
-
-    /**
      * @brief Monitor port
      *
      * @type char
      * @flags CREATE_AND_SET
      */
     LAI_OCM_ATTR_MONITOR_PORT,
+
+    /**
+     * @brief Enabled
+     *
+     * @type bool
+     * @flags CREATE_AND_SET
+     */
+    LAI_OCM_ATTR_ENABLED,
+
+    /**
+     * @brief Frequency granularity in MHz
+     *
+     * @type lai_uint64_t
+     * @flags CREATE_AND_SET
+     */
+    LAI_OCM_ATTR_FREQUENCY_GRANULARITY,
 
     /**
      * @brief Serial No
@@ -133,14 +141,6 @@ typedef enum _lai_ocm_attr_t
      * @flags READ_ONLY
      */
     LAI_OCM_ATTR_SOFTWARE_VERSION,
-
-    /**
-     * @brief Parent
-     *
-     * @type char
-     * @flags READ_ONLY
-     */
-    LAI_OCM_ATTR_PARENT,
 
     /**
      * @brief Spectrum power

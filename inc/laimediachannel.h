@@ -58,14 +58,6 @@ typedef enum _lai_mediachannel_attr_t
     LAI_MEDIACHANNEL_ATTR_ID = LAI_MEDIACHANNEL_ATTR_START,
 
     /**
-     * @brief Name
-     *
-     * @type char
-     * @flags CREATE_AND_SET
-     */
-    LAI_MEDIACHANNEL_ATTR_NAME,
-
-    /**
      * @brief Lower frequency
      *
      * @type lai_uint64_t

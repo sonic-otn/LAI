@@ -29,6 +29,96 @@
  */
 
 /**
+ * @brief Enum defining OTDR event types.
+ */
+typedef enum _lai_otdr_event_type_t
+{
+    LAI_OTDR_EVENT_TYPE_START,
+    LAI_OTDR_EVENT_TYPE_END,
+    LAI_OTDR_EVENT_TYPE_REFLECTION,
+    LAI_OTDR_EVENT_TYPE_NON_REFLECTION,
+    LAI_OTDR_EVENT_TYPE_FIBER_SECTION,
+    LAI_OTDR_EVENT_TYPE_UNKOWN,
+} lai_otdr_event_type_t;
+
+typedef struct _lai_otdr_event_t
+{
+    lai_otdr_event_type_t type;
+
+    /** Event distance or fiber section length in km */
+    lai_double_t length;
+
+    /** Event loss in dB */
+    lai_double_t loss;
+
+    /** Event reflection in dB */
+    lai_double_t reflection;
+
+    /** Accumulated loss at the event point */
+    lai_double_t accumulate_loss;
+
+} lai_otdr_event_t;
+
+typedef struct _lai_otdr_event_list_t
+{
+    uint32_t count;
+    lai_otdr_event_t *list;
+} lai_otdr_event_list_t;
+
+typedef struct _lai_otdr_events_t
+{
+    /** Total length in km */
+    lai_double_t span_distance;
+
+    /** Total loss in dB */
+    lai_double_t span_loss;
+
+    lai_otdr_event_list_t events;
+
+} lai_otdr_events_t;
+
+typedef struct _lai_otdr_scanning_profile_t
+{
+    lai_uint64_t scan_time;
+
+    /** Distance range in km */
+    lai_uint32_t distance_range;
+
+    /** Pulse width in nanosecond */
+    lai_uint32_t pulse_width;
+
+    /** Average time of each scanning in second */
+    lai_uint32_t average_time;
+
+    /** The output frequency in MHz of the OTDR */
+    lai_uint64_t output_frequency;
+
+} lai_otdr_scanning_profile_t;
+
+typedef struct _lai_otdr_result_trace_t
+{
+    lai_uint64_t update_time;
+    lai_u8_list_t data;
+} lai_otdr_result_trace_t;
+
+typedef struct _lai_otdr_result_t
+{
+    lai_otdr_scanning_profile_t scanning_profile;
+    lai_otdr_events_t events;
+    lai_otdr_result_trace_t trace;
+} lai_otdr_result_t;
+
+/**
+ * @brief OTDR report result
+ *
+ * @param[in] otdr_id OTDR Id
+ * @param[in] otdr_result OTDR result
+ */
+typedef void (*lai_otdr_report_result_fn)(
+        _In_ lai_object_id_t otdr_id,
+        _In_ lai_otdr_result_t otdr_result);
+
+/**
  * @brief OTDR attribute IDs
  */
 typedef enum _lai_otdr_attr_t
@@ -45,22 +135,6 @@ typedef enum _lai_otdr_attr_t
      * @flags MANDATORY_ON_CREATE | CREATE_ONLY
      */
     LAI_OTDR_ATTR_ID = LAI_OTDR_ATTR_START,
-
-    /**
-     * @brief Name
-     *
-     * @type char
-     * @flags CREATE_AND_SET
-     */
-    LAI_OTDR_ATTR_NAME,
-
-    /**
-     * @brief Parent port
-     *
-     * @type char
-     * @flags CREATE_AND_SET
-     */
-    LAI_OTDR_ATTR_PARENT_PORT,
 
     /**
      * @brief Refractive index
@@ -279,12 +353,13 @@ typedef enum _lai_otdr_attr_t
     LAI_OTDR_ATTR_SOFTWARE_VERSION,
 
     /**
-     * @brief Parent
+     * @brief Result notify
      *
-     * @type char
-     * @flags READ_ONLY
+     * @type lai_pointer_t lai_otdr_report_result_fn
+     * @flags CREATE_ONLY
+     * @default NULL
      */
-    LAI_OTDR_ATTR_PARENT,
+    LAI_OTDR_ATTR_RESULT_NOTIFY,
 
     /**
      * @brief End of attributes

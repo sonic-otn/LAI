@@ -244,14 +244,6 @@ typedef enum _lai_aps_attr_t
     LAI_APS_ATTR_TYPE,
 
     /**
-     * @brief Name
-     *
-     * @type char
-     * @flags CREATE_AND_SET
-     */
-    LAI_APS_ATTR_NAME,
-
-    /**
      * @brief Revertive
      *
      * @type bool
