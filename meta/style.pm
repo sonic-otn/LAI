@@ -241,29 +241,6 @@ sub CheckGaugesFunction
     }
 }
 
-sub CheckAlarmsFunction
-{
-    my ($fname,$fn,$fnparams) = @_;
-
-    if (not $fname =~ /^lai_((get|clear)_(\w+)_alarms)_fn$/)
-    {
-        LogWarning "wrong stat function name: $fname, expected: lai_(get|clear)_\\w+_alarms_fn";
-    }
-
-    if (not $fnparams =~ /^\w+_id number_of_alarms alarm_ids( alarm_info)?$/)
-    {
-        LogWarning "invalid stat function $fname params names: $fnparams";
-    }
-
-    my @paramtypes = $fn =~ /_(?:In|Out|Inout)_\s*(.+?)\s*(?:\w+?)\s*[,\)]/gis;
-    my $ptypes = "@paramtypes";
-
-    if (not $ptypes =~ /^lai_object_id_t uint32_t const lai_alarm_type_t \*( lai_alarm_info_t \*)?$/)
-    {
-        LogWarning "invalid stat function $fname param types: $ptypes";
-    }
-}
-
 sub CheckFunctionsParams
 {
     #
@@ -318,13 +295,13 @@ sub CheckFunctionsParams
         next if not $fname =~ /_fn$/; # below don't apply for global functions
 
         if (not $fnparams =~ /^(\w+)(| attr| attr_count attr_list| linecard_id attr_count attr_list)$/ and
-            not $fname =~ /_(stats|stats_ext|gauges|notification|event|handler|alarms|switch_info|report_result)_fn$|^lai_(send|allocate|free|recv|bulk)_|^lai_meta/)
+            not $fname =~ /_(stats|stats_ext|gauges|notification|event|handler|switch_info|report_result)_fn$|^lai_(send|allocate|free|recv|bulk)_|^lai_meta/)
         {
             LogWarning "wrong param names: $fnparams: $fname";
             LogWarning " expected: $params[0](| attr| attr_count attr_list| linecard_id attr_count attr_list)";
         }
 
-        if ($fname =~ /^lai_(get|set|create|remove)_(\w+?)(_attribute)?(_alarms|_gauges|_stats|_stats_ext)?_fn/)
+        if ($fname =~ /^lai_(get|set|create|remove)_(\w+?)(_attribute)?(_gauges|_stats|_stats_ext)?_fn/)
         {
             my $pattern = $2;
             my $first = $params[0];
@@ -352,11 +329,6 @@ sub CheckFunctionsParams
         if ($fname =~ /^lai_\w+_gauges_/)
         {
             CheckGaugesFunction($fname,$fn,$fnparams);
-        }
-
-        if ($fname =~ /^lai_\w+_alarms_/)
-        {
-            CheckAlarmsFunction($fname,$fn,$fnparams);
         }
     }
 }
@@ -489,10 +461,6 @@ sub CheckFunctionNaming
     {
         LogWarning "not object name $2 in $name" if not IsObjectName($2);
     }
-    elsif ($name =~ /^(get|clear)_(\w+?)_alarms?$/)
-    {
-        LogWarning "not object name $2 in $name" if not IsObjectName($2);
-    }
     elsif ($name =~ /^(create|remove|get|set)_(\w+?)(_attribute)?$/)
     {
         my $n = $2;
@@ -512,7 +480,7 @@ sub CheckFunctionNaming
         LogWarning "function not matching $typename vs $name in $header:$n:$line";
     }
 
-    if (not $name =~ /^(create|remove|get|set)_\w+?(_attribute)?$|^clear_\w+_(stats|gauges|alarms)$/)
+    if (not $name =~ /^(create|remove|get|set)_\w+?(_attribute)?$|^clear_\w+_(stats|gauges)$/)
     {
         # exceptions
         return if $name =~ /^(profile_get_value|profile_get_next_value)$/;
@@ -884,7 +852,7 @@ sub CheckHeadersStyle
             {
                 my $param = $1;
 
-                my $pattern = '^(attr_count|object_count|number_of_counters|number_of_alarms|number_of_gauges|gauge|alarm|count|u32|device_addr|start_reg_addr|number_of_registers|reg_val)$';
+                my $pattern = '^(attr_count|object_count|number_of_counters|number_of_gauges|gauge|count|u32|device_addr|start_reg_addr|number_of_registers|reg_val)$';
 
                 if (not $param =~ /$pattern/)
                 {

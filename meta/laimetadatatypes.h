@@ -1205,17 +1205,6 @@ typedef lai_status_t (*lai_meta_generic_clear_stats_fn)(
         _In_ uint32_t number_of_counters,
         _In_ const lai_stat_id_t *counter_ids);
 
-typedef lai_status_t (*lai_meta_generic_get_alarms_fn)(
-        _In_ const lai_object_meta_key_t *meta_key,
-        _In_ uint32_t number_of_alarms,
-        _In_ const lai_alarm_type_t *alarm_ids,
-        _Out_ lai_alarm_info_t *alarm_info);
-
-typedef lai_status_t (*lai_meta_generic_clear_alarms_fn)(
-        _In_ const lai_object_meta_key_t *meta_key,
-        _In_ uint32_t number_of_alarms,
-        _In_ const lai_alarm_type_t *alarm_ids);
-
 typedef lai_status_t (*lai_generic_create_fn)(
         _Out_ lai_object_id_t *object_id,
         _In_ lai_object_id_t module_id,
@@ -1352,19 +1341,10 @@ typedef struct _lai_object_type_info_t
     const lai_enum_metadata_t* const                statenum;
 
     /**
-     * @brief Get alarms function pointer.
-     */
-    const lai_meta_generic_get_alarms_fn            getalarms;
-
-    /**
-     * @brief Clear alarms function pointer
-     */
-    const lai_meta_generic_clear_alarms_fn          clearalarms;
-
-    /**
      * @brief Points to enum lai_OBJECT_TYPE_alarm_t if object supports alarms.
      */
     const lai_enum_metadata_t* const                alarmenum;
+
 } lai_object_type_info_t;
 
 /**

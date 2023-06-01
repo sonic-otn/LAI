@@ -5,6 +5,7 @@ ALS - Automatic Laser Shutdown
 AN - Association Number
 AN - Auto Negotiation
 API - Application Program Interface
+APR - Automatic Power Reduction
 APS - Automatic Protection Switching
 APSPORT - Automatic Protection Switching Port
 ARP - Address Resolution Protocol

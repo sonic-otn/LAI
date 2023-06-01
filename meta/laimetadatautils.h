@@ -88,6 +88,16 @@ extern const lai_attr_metadata_t* lai_metadata_get_attr_metadata_by_attr_id_name
         _In_ const char *attr_id_name);
 
 /**
+ * @brief Gets statistics metadata based on statistics id name
+ *
+ * @param[in] stat_id_name Statistics id name
+ *
+ * @return Pointer to object metadata or NULL in case of failure
+ */
+extern const lai_stat_metadata_t* lai_metadata_get_stat_metadata_by_stat_id_name(
+        _In_ const char *stat_id_name);
+
+/**
  * @brief Gets string representation of enum value
  *
  * @param[in] metadata Enum metadata

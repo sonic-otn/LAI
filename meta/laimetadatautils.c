@@ -165,6 +165,46 @@ const lai_attr_metadata_t* lai_metadata_get_attr_metadata_by_attr_id_name(
     return NULL;
 }
 
+const lai_stat_metadata_t* lai_metadata_get_stat_metadata_by_stat_id_name(
+        _In_ const char *stat_id_name)
+{
+    if (stat_id_name == NULL)
+    {
+        return NULL;
+    }
+
+    /* use binary search */
+
+    ssize_t first = 0;
+    ssize_t last = (ssize_t)(lai_metadata_stat_sorted_by_id_name_count - 1);
+
+    while (first <= last)
+    {
+        ssize_t middle = (first + last) / 2;
+
+        int res = strcmp(stat_id_name, lai_metadata_stat_sorted_by_id_name[middle]->statidname);
+
+        if (res > 0)
+        {
+            first = middle + 1;
+        }
+        else if (res < 0)
+        {
+            last = middle - 1;
+        }
+        else
+        {
+            /* found */
+
+            return lai_metadata_stat_sorted_by_id_name[middle];
+        }
+    }
+
+    /* not found */
+
+    return NULL;
+}
+
 const char* lai_metadata_get_enum_value_name(
         _In_ const lai_enum_metadata_t* metadata,
         _In_ int value)

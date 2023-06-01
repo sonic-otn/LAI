@@ -52,6 +52,7 @@ typedef enum _lai_oa_amp_mode_t
     LAI_OA_AMP_MODE_CONSTANT_POWER,
     LAI_OA_AMP_MODE_CONSTANT_GAIN,
     LAI_OA_AMP_MODE_DYNAMIC_GAIN,
+    LAI_OA_AMP_MODE_DYNAMIC_POWER,
 } lai_oa_amp_mode_t;
 
 /** @brief OA fiber type profile */
@@ -410,6 +411,39 @@ typedef enum _lai_oa_attr_t
     LAI_OA_ATTR_OUTPUT_OFFSET_LINES_TX,
 
     /**
+     * @brief Enable APR node
+     *
+     * @type bool
+     * @flags CREATE_AND_SET
+     */
+    LAI_OA_ATTR_APR_NODE_ENABLE,
+
+    /**
+     * @brief APR node reflection threshold
+     *
+     * @type lai_double_t
+     * @flags CREATE_AND_SET
+     */
+    LAI_OA_ATTR_APR_NODE_REFLECTION_THRESHOLD,
+
+    /**
+     * @brief Enable APR line
+     *
+     * @type bool
+     * @flags CREATE_AND_SET
+     */
+    LAI_OA_ATTR_APR_LINE_ENABLE,
+
+    /**
+     * @brief APR line valid lldp
+     *
+     * @type bool
+     * @flags CREATE_AND_SET
+     * @isrecoverable false
+     */
+    LAI_OA_ATTR_APR_LINE_VALID_LLDP,
+
+    /**
      * @brief End of attributes
      */
     LAI_OA_ATTR_END,
@@ -609,6 +643,16 @@ typedef enum _lai_oa_stat_t
      * @iscounter false
      */
     LAI_OA_STAT_INGRESS_VOA_ATTEN,
+
+    /**
+     * @brief Monitor port output power
+     *
+     * @type lai_double_t
+     * @unit dBm
+     * @precision precision2
+     * @iscounter false
+     */
+    LAI_OA_STAT_MON_OUTPUT_POWER,
 
     /**
      * @brief End of statistics

@@ -418,6 +418,86 @@ typedef enum _lai_led_color_t
 } lai_led_color_t;
 
 /**
+ * @brief Enum defining OTDR event types.
+ */
+typedef enum _lai_otdr_event_type_t
+{
+    LAI_OTDR_EVENT_TYPE_START,
+    LAI_OTDR_EVENT_TYPE_END,
+    LAI_OTDR_EVENT_TYPE_REFLECTION,
+    LAI_OTDR_EVENT_TYPE_NON_REFLECTION,
+    LAI_OTDR_EVENT_TYPE_FIBER_SECTION,
+    LAI_OTDR_EVENT_TYPE_UNKOWN,
+} lai_otdr_event_type_t;
+
+typedef struct _lai_otdr_event_t
+{
+    lai_otdr_event_type_t type;
+
+    /** Event distance or fiber section length in km */
+    lai_double_t length;
+
+    /** Event loss in dB */
+    lai_double_t loss;
+
+    /** Event reflection in dB */
+    lai_double_t reflection;
+
+    /** Accumulated loss at the event point */
+    lai_double_t accumulate_loss;
+
+} lai_otdr_event_t;
+
+typedef struct _lai_otdr_event_list_t
+{
+    uint32_t count;
+    lai_otdr_event_t *list;
+} lai_otdr_event_list_t;
+
+typedef struct _lai_otdr_events_t
+{
+    /** Total length in km */
+    lai_double_t span_distance;
+
+    /** Total loss in dB */
+    lai_double_t span_loss;
+
+    lai_otdr_event_list_t events;
+
+} lai_otdr_events_t;
+
+typedef struct _lai_otdr_scanning_profile_t
+{
+    lai_uint64_t scan_time;
+
+    /** Distance range in km */
+    lai_uint32_t distance_range;
+
+    /** Pulse width in nanosecond */
+    lai_uint32_t pulse_width;
+
+    /** Average time of each scanning in second */
+    lai_uint32_t average_time;
+
+    /** The output frequency in MHz of the OTDR */
+    lai_uint64_t output_frequency;
+
+} lai_otdr_scanning_profile_t;
+
+typedef struct _lai_otdr_result_trace_t
+{
+    lai_uint64_t update_time;
+    lai_u8_list_t data;
+} lai_otdr_result_trace_t;
+
+typedef struct _lai_otdr_result_t
+{
+    lai_otdr_scanning_profile_t scanning_profile;
+    lai_otdr_events_t events;
+    lai_otdr_result_trace_t trace;
+} lai_otdr_result_t;
+
+/**
  * @brief Alarm type of the linecard
  */
 typedef enum _lai_alarm_type_t
@@ -633,12 +713,12 @@ typedef enum _lai_alarm_type_t
     LAI_ALARM_TYPE_APR_INSTATIN_TRIGGER,
     LAI_ALARM_TYPE_TARGET_POWER_NOT_REACHABLE,
     LAI_ALARM_TYPE_MC_ASE_LOAD,
-    LAI_ALARM_TYPE_OTDR_SAPN_LOSS_CHANGE_BASELINE,
     LAI_ALARM_TYPE_OTDR_TSET_FAILED,
     LAI_ALARM_TYPE_OTDR_REPORT_IN_BASELINE,
+    LAI_ALARM_TYPE_OTDR_SPAN_DISTANCE_CHANGE,
     LAI_ALARM_TYPE_OTDR_SPAN_DISTANCE_CHANGE_BASELINE,
     LAI_ALARM_TYPE_OTDR_SPAN_LOSS_CHANGE,
-    LAI_ALARM_TYPE_OTDR_SPAN_DISTANCE_CHANGE,
+    LAI_ALARM_TYPE_OTDR_SPAN_LOSS_CHANGE_BASELINE,
     LAI_ALARM_TYPE_PLUG_IN,
     LAI_ALARM_TYPE_PLUG_OFF,
 

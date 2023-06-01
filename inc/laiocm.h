@@ -47,20 +47,13 @@ typedef enum _lai_ocm_attr_t
     LAI_OCM_ATTR_ID = LAI_OCM_ATTR_START,
 
     /**
-     * @brief Monitor port
-     *
-     * @type char
-     * @flags CREATE_AND_SET
-     */
-    LAI_OCM_ATTR_MONITOR_PORT,
-
-    /**
-     * @brief Enabled
+     * @brief Scan
      *
      * @type bool
-     * @flags CREATE_AND_SET
+     * @flags SET_ONLY
+     * @isrecoverable false
      */
-    LAI_OCM_ATTR_ENABLED,
+    LAI_OCM_ATTR_SCAN,
 
     /**
      * @brief Frequency granularity in MHz
@@ -143,12 +136,20 @@ typedef enum _lai_ocm_attr_t
     LAI_OCM_ATTR_SOFTWARE_VERSION,
 
     /**
-     * @brief Spectrum power
+     * @brief Firmware version
      *
-     * @type lai_spectrum_power_list_t
+     * @type char
      * @flags READ_ONLY
      */
-    LAI_OCM_ATTR_SPECTRUM_POWER,
+    LAI_OCM_ATTR_FIRMWARE_VERSION,
+
+    /**
+     * @brief Insertion loss to panel port
+     *
+     * @type lai_double_t
+     * @flags READ_ONLY
+     */
+    LAI_OCM_ATTR_INSERTION_LOSS_TO_PANEL_PORT,
 
     /**
      * @brief End of attributes

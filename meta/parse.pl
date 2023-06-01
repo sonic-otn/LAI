@@ -168,6 +168,12 @@ sub ProcessTagType
         return $val;
     }
 
+    if ($val =~ /^lai_pointer_t (lai_ocm_\w+_fn)$/)
+    {
+        $ATTR_TO_CALLBACK{$value} = $1;
+        return $val;
+    }
+
     LogError "invalid type tag value '$val' expected lai type or enum";
 
     return undef;
@@ -541,7 +547,7 @@ sub ProcessEnumSection
         # remove unnecessary attributes
         my @values = @{ $LAI_ENUMS{$enumtypename}{values} };
 
-        @values = grep(!/^LAI_\w+_(START|END)$/, @values);
+        @values = grep(!/^LAI_\w+_(ATTR|STAT|RANGE)_(START|END)$/, @values);
         @values = grep(!/^LAI_\w+(RANGE_BASE)$/, @values);
 
         if ($enumtypename =~ /^(lai_\w+)_t$/)
@@ -3001,73 +3007,6 @@ sub ProcessClearStats
     return "lai_metadata_generic_clear_stats_$ot";
 }
 
-sub ProcessGetAlarms
-{
-    my $struct = shift;
-    my $ot = shift;
-
-    my $small = lc($1) if $ot =~ /LAI_OBJECT_TYPE_(\w+)/;
-
-    my $api = $OBJTOAPIMAP{$ot};
-
-    WriteSource "lai_status_t lai_metadata_generic_get_alarms_$ot(";
-    WriteSource "_In_ const lai_object_meta_key_t *meta_key,";
-    WriteSource "_In_ uint32_t number_of_alarms,";
-    WriteSource "_In_ const lai_alarm_type_t *alarm_ids,";
-    WriteSource "_Out_ lai_alarm_info_t *alarm_info)";
-    WriteSource "{";
-
-    if (not defined $OBJECT_TYPE_TO_ALARMS_MAP{$small})
-    {
-        WriteSource "return LAI_STATUS_NOT_SUPPORTED;";
-    }
-    elsif (not defined $struct)
-    {
-        WriteSource "return lai_metadata_lai_${api}_api->get_${small}_alarms(meta_key->objectkey.key.object_id, number_of_alarms, alarm_ids, alarm_info);";
-    }
-    else
-    {
-        WriteSource "return lai_metadata_lai_${api}_api->get_${small}_alarms(&meta_key->objectkey.key.$small, number_of_alarms, alarm_ids, alarm_info);";
-    }
-
-    WriteSource "}";
-
-    return "lai_metadata_generic_get_alarms_$ot";
-}
-
-sub ProcessClearAlarms
-{
-    my $struct = shift;
-    my $ot = shift;
-
-    my $small = lc($1) if $ot =~ /LAI_OBJECT_TYPE_(\w+)/;
-
-    my $api = $OBJTOAPIMAP{$ot};
-
-    WriteSource "lai_status_t lai_metadata_generic_clear_alarms_$ot(";
-    WriteSource "_In_ const lai_object_meta_key_t *meta_key,";
-    WriteSource "_In_ uint32_t number_of_alarms,";
-    WriteSource "_In_ const lai_alarm_type_t *alarm_ids)";
-    WriteSource "{";
-
-    if (not defined $OBJECT_TYPE_TO_ALARMS_MAP{$small})
-    {
-        WriteSource "return LAI_STATUS_NOT_SUPPORTED;";
-    }
-    elsif (not defined $struct)
-    {
-        WriteSource "return lai_metadata_lai_${api}_api->clear_${small}_alarms(meta_key->objectkey.key.object_id, number_of_alarms, alarm_ids);";
-    }
-    else
-    {
-        WriteSource "return lai_metadata_lai_${api}_api->clear_${small}_alarms(&meta_key->objectkey.key.$small, number_of_alarms, alarm_ids);";
-    }
-
-    WriteSource "}";
-
-    return "lai_metadata_generic_clear_alarms_$ot";
-}
-
 sub CreateApis
 {
     WriteSectionComment "Global LAI API declarations";
@@ -3262,9 +3201,6 @@ sub CreateObjectInfo
         my $getstatsext = ProcessGetStatsExt($struct, $ot);
         my $clearstats  = ProcessClearStats($struct, $ot);
 
-        my $getalarms    = ProcessGetAlarms($struct, $ot);
-        my $clearalarms  = ProcessClearAlarms($struct, $ot);
-
         WriteHeader "extern const lai_object_type_info_t lai_metadata_object_type_info_$ot;";
 
         WriteSource "const lai_object_type_info_t lai_metadata_object_type_info_$ot = {";
@@ -3291,8 +3227,6 @@ sub CreateObjectInfo
         WriteSource ".clearstats           = $clearstats,";
         WriteSource ".isexperimental       = $isexperimental,";
         WriteSource ".statenum             = $statenum,";
-        WriteSource ".getalarms            = $getalarms,";
-        WriteSource ".clearalarms          = $clearalarms,";
         WriteSource ".alarmenum            = $alarmenum,";
 
         WriteSource "};";
@@ -3486,6 +3420,60 @@ sub CreateListOfAllAttributes
     WriteHeader "extern const size_t lai_metadata_attr_sorted_by_id_name_count;";
 }
 
+sub GetHashOfAllStatistics
+{
+    my %STATISTICS = ();
+
+    for my $key (sort keys %LAI_ENUMS)
+    {
+        next if not $key =~ /^(lai_(\w+)_stat_t)$/;
+
+        my $typedef = $1;
+
+        my $enum = $LAI_ENUMS{$typedef};
+
+        my @values = @{ $enum->{values} };
+
+        for my $stat (@values)
+        {
+            if (not defined $METADATA{$typedef} or not defined $METADATA{$typedef}{$stat})
+            {
+                LogError "metadata is missing for $stat";
+                next;
+            }
+
+            $STATISTICS{$stat} = 1;
+        }
+    }
+
+    return %STATISTICS;
+}
+
+sub CreateListOfAllStatistics
+{
+    WriteSectionComment "List of all statistics";
+
+    my %STATISTICS = GetHashOfAllStatistics();
+
+    WriteHeader "extern const lai_stat_metadata_t* const lai_metadata_stat_sorted_by_id_name[];";
+    WriteSource "const lai_stat_metadata_t* const lai_metadata_stat_sorted_by_id_name[] = {";
+
+    my @keys = sort keys %STATISTICS;
+
+    for my $stat (@keys)
+    {
+        WriteSource "&lai_metadata_stat_$stat,"
+    }
+
+    my $count = @keys;
+
+    WriteSource "NULL";
+    WriteSource "};";
+
+    WriteSource "const size_t lai_metadata_stat_sorted_by_id_name_count = $count;";
+    WriteHeader "extern const size_t lai_metadata_stat_sorted_by_id_name_count;";
+}
+
 sub CheckApiStructNames
 {
     #
@@ -3608,52 +3596,6 @@ sub ExtractStatsFunctionMap
     }
 
     %OBJECT_TYPE_TO_STATS_MAP = %otmap;
-}
-
-sub ExtractAlarmsFunctionMap
-{
-    #
-    # Purpose is to get alarms functions consistent
-    # with alarms_t defined for them
-    #
-
-    my @headers = GetHeaderFiles();
-
-    my @merged = @headers;
-
-    my %otmap = ();
-
-    for my $header (@merged)
-    {
-        my $data = ReadHeaderFile($header);
-
-        next if not $data =~ m!(lai_\w+_api_t)(.+?)\1;!igs;
-
-        my $apis = $2;
-
-        my @fns = $apis =~ /lai_(\w+_alarms)_fn/g;
-
-        for my $fn (@fns)
-        {
-            # exceptions
-
-            if (not $fn =~ /^(?:get|clear)_(\w+)_alarms$/)
-            {
-                LogWarning "Invalid alarms function name: $fn";
-            }
-
-            my $ot = $1;
-            my @alarmfns = ();
-
-            $otmap{$ot} = \@alarmfns if not defined $otmap{$ot};
-
-            my $ref = $otmap{$ot};
-
-            push@$ref,$fn;
-        }
-    }
-
-    %OBJECT_TYPE_TO_ALARMS_MAP = %otmap;
 }
 
 sub CheckObjectTypeStatitics
@@ -4317,8 +4259,6 @@ ExtractApiToObjectMap();
 
 ExtractStatsFunctionMap();
 
-ExtractAlarmsFunctionMap();
-
 ExtractUnionsInfo();
 
 CheckHeadersStyle() if not defined $optionDisableStyleCheck;
@@ -4366,6 +4306,8 @@ CreateApisQuery();
 CreateObjectInfo();
 
 CreateListOfAllAttributes();
+
+CreateListOfAllStatistics();
 
 CheckCapabilities();
 

@@ -105,6 +105,30 @@ typedef void (*lai_linecard_alarm_notification_fn)(
         _In_ lai_alarm_info_t alarm_info);
 
 /**
+ * @brief Linecard OCM spectrum power notification
+ *
+ * @param[in] linecard_id Linecard Id
+ * @param[in] ocm_id OCM Id
+ * @param[in] ocm_result OCM Result
+ */
+typedef void (*lai_linecard_ocm_spectrum_power_notification_fn)(
+        _In_ lai_object_id_t linecard_id,
+        _In_ lai_object_id_t ocm_id,
+        _In_ lai_spectrum_power_list_t ocm_result);
+
+/**
+ * @brief Linecard OTDR report result
+ *
+ * @param[in] linecard_id Linecard Id
+ * @param[in] otdr_id OTDR Id
+ * @param[in] otdr_result OTDR result
+ */
+typedef void (*lai_linecard_otdr_result_notification_fn)(
+        _In_ lai_object_id_t linecard_id,
+        _In_ lai_object_id_t otdr_id,
+        _In_ lai_otdr_result_t otdr_result);
+
+/**
  * @brief Attribute Id in lai_set_linecard_attribute() and
  *        lai_get_linecard_attribute() calls.
  */
@@ -279,6 +303,24 @@ typedef enum _lai_linecard_attr_t
      * @default NULL
      */
     LAI_LINECARD_ATTR_LINECARD_ALARM_NOTIFY,
+
+    /**
+     * @brief Spectrum power notification
+     *
+     * @type lai_pointer_t lai_linecard_ocm_spectrum_power_notification_fn
+     * @flags CREATE_ONLY
+     * @default NULL
+     */
+    LAI_LINECARD_ATTR_LINECARD_OCM_SPECTRUM_POWER_NOTIFY,
+
+    /**
+     * @brief OTDR result notification
+     *
+     * @type lai_pointer_t lai_linecard_otdr_result_notification_fn
+     * @flags CREATE_ONLY
+     * @default NULL
+     */
+    LAI_LINECARD_ATTR_LINECARD_OTDR_RESULT_NOTIFY,
 
     /**
      * @brief Collect linecard alarm.
@@ -721,36 +763,6 @@ typedef lai_status_t (*lai_clear_linecard_stats_fn)(
         _In_ const lai_stat_id_t *counter_ids);
 
 /**
- * @brief Get linecard alarms.
- *
- * @param[in] linecard_id Linecard id
- * @param[in] number_of_alarms Number of alarms in the array
- * @param[in] alarm_ids Specifies the array of alarm ids
- * @param[out] alarm_info Array of resulting alarm info.
- *
- * @return #LAI_STATUS_SUCCESS on success, failure status code on error
- */
-typedef lai_status_t (*lai_get_linecard_alarms_fn)(
-        _In_ lai_object_id_t linecard_id,
-        _In_ uint32_t number_of_alarms,
-        _In_ const lai_alarm_type_t *alarm_ids,
-        _Out_ lai_alarm_info_t *alarm_info);
-
-/**
- * @brief Clear linecard alarms.
- *
- * @param[in] linecard_id Linecard id
- * @param[in] number_of_alarms Number of alarms in the array
- * @param[in] alarm_ids Specifies the array of alarm ids
- *
- * @return #LAI_STATUS_SUCCESS on success, failure status code on error
- */
-typedef lai_status_t (*lai_clear_linecard_alarms_fn)(
-        _In_ lai_object_id_t linecard_id,
-        _In_ uint32_t number_of_alarms,
-        _In_ const lai_alarm_type_t *alarm_ids);
-
-/**
  * @brief Linecard method table retrieved with lai_api_query()
  */
 typedef struct _lai_linecard_api_t
@@ -762,8 +774,6 @@ typedef struct _lai_linecard_api_t
     lai_get_linecard_stats_fn         get_linecard_stats;
     lai_get_linecard_stats_ext_fn     get_linecard_stats_ext;
     lai_clear_linecard_stats_fn       clear_linecard_stats;
-    lai_get_linecard_alarms_fn        get_linecard_alarms;
-    lai_clear_linecard_alarms_fn      clear_linecard_alarms;
 } lai_linecard_api_t;
 
 /**
